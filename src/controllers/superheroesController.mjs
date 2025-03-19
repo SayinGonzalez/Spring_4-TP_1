@@ -1,4 +1,11 @@
-import { obtenerSuperHeroePorId, obtenerTodosLosSuperHeroes, buscarSuperHeroesPorAtributo, obtenerSuperHeroesMayoresDe30, obtenerSuperheroesPorPoderes } from '../services/superheroesService.mjs';
+import {
+    obtenerSuperHeroePorId,
+    obtenerTodosLosSuperHeroes,
+    buscarSuperHeroesPorAtributo,
+    obtenerSuperHeroesMayoresDe30,
+    obtenerSuperheroesPorPoderes,
+    crearNuevoSuperheroe
+} from '../services/superheroesService.mjs';
 import { renderizarSuperheroe, renderizarListasSuperheroes } from '../views/responseView.mjs';
 
 
@@ -21,7 +28,6 @@ export async function obtenerSuperheroePorIdController(req, res) {
     }
 }
 
-
 export async function obtenerTodosLosSuperheroesController(req, res) {
     try {
         const superheroes = await obtenerTodosLosSuperHeroes();
@@ -34,7 +40,6 @@ export async function obtenerTodosLosSuperheroesController(req, res) {
         res.status(500).send({ mensaje: 'Error al obtener los superhéroes', error: error.message });
     }
 }
-
 
 export async function buscarSuperheroesPorAtributoController(req, res) {
     try {
@@ -55,11 +60,10 @@ export async function buscarSuperheroesPorAtributoController(req, res) {
     }
 }
 
-
 export async function obtenerSuperheroesMayoresDe30Controller(req, res) {
 
     try {
-        
+
         const superheroes = await obtenerSuperHeroesMayoresDe30();
         if (superheroes.length === 0) {
             return res.status(404).send({ mensaje: 'No se encontraron superhéroes mayores de 30 años' });
@@ -69,7 +73,7 @@ export async function obtenerSuperheroesMayoresDe30Controller(req, res) {
         res.status(200).json(superheroesFormateados);
 
     } catch (error) {
-        
+
         res.status(500).send({ mensaje: 'Error al obtener superhéroes mayores de 30', error: error.message });
 
     }
@@ -80,7 +84,7 @@ export async function obtenerSuperheroesPorPoderesController(req, res) {
         console.log(req);
         const { valor } = req.params;
         const superheroes = await obtenerSuperheroesPorPoderes(valor);
-        if(superheroes.length === 0){
+        if (superheroes.length === 0) {
             return res.status(404).send({ mensaje: 'No se encontraron superhéroes con esos poderes' });
         }
 
@@ -88,8 +92,28 @@ export async function obtenerSuperheroesPorPoderesController(req, res) {
         res.status(200).json(superheroesFormateados);
 
     } catch (error) {
-        
+
         res.status(500).send({ mensaje: 'Error al obtener superhéroes con esos poderes', error: error.message });
 
-    }   
+    }
+}
+
+/* Spring 3 - TP1 */
+export async function crearNuevoSuperheroeController(req, res) {
+    try {
+
+        const datos = req.body;
+
+        const superheroeNuevo = crearNuevoSuperheroe(datos);
+        if (!superheroeNuevo) {
+            return res.status(404).send({ mensaje: 'Superhéroe nuevo no encontrado' });
+        }
+
+        const superheroeFormateado = renderizarSuperheroe(superheroeNuevo);
+        res.status(200).json(superheroeFormateado);
+
+    } catch (error) {
+        res.status(500).send({ mensaje: 'Error al crear el nuevo superhéroe', error: error.message });
+    }
+
 }

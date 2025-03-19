@@ -19,3 +19,8 @@ export async function obtenerSuperHeroesMayoresDe30() {
 export async function obtenerSuperheroesPorPoderes(valor) {
     return await SuperHeroRepository.obtenerPorPoderes(valor);
 }
+
+/* Spring 3 - TP1 */
+export async function crearNuevoSuperheroe(datosNuevoSuperheroe) {
+    return await SuperHeroRepository.crearSuperheroe(datosNuevoSuperheroe);
+}
