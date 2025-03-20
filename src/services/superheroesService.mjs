@@ -24,3 +24,8 @@ export async function obtenerSuperheroesPorPoderes(valor) {
 export async function crearNuevoSuperheroe(datosNuevoSuperheroe) {
     return await SuperHeroRepository.crearSuperheroe(datosNuevoSuperheroe);
 }
+
+export async function actualizarSuperheroe(id, datosActualizarSuperheroe) {
+    return await SuperHeroRepository.actualizarHeroe(id, datosActualizarSuperheroe);
+    
+}

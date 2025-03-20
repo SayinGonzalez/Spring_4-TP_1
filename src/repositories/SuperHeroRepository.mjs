@@ -39,10 +39,20 @@ class SuperHeroRepository extends IRepository {
         return superheroeCreado; */
 
         const nuevoHeroe = new SuperHero(datosSuperheroe);
-        await nuevoHeroe.save();
-        console.log(nuevoHeroe);
-        return nuevoHeroe;
+        //console.log(nuevoHeroe);
+        return await nuevoHeroe.save();
 
+    }
+
+    async actualizarHeroe(id, datosActualizar) {
+        
+        /* updateOne() o updateMany() devuelven el resultado de la operación pero no el documento actualizado
+        y findByIdAndUpdate() devuelve el documento actualizado */
+        
+        const heroeActualizado = await SuperHero.findByIdAndUpdate(id, datosActualizar, { new: true });
+        console.log(heroeActualizado);
+        return heroeActualizado;
+        
     }
 
 }

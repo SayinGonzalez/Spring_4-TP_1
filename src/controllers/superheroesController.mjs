@@ -4,7 +4,8 @@ import {
     buscarSuperHeroesPorAtributo,
     obtenerSuperHeroesMayoresDe30,
     obtenerSuperheroesPorPoderes,
-    crearNuevoSuperheroe
+    crearNuevoSuperheroe,
+    actualizarSuperheroe
 } from '../services/superheroesService.mjs';
 import { renderizarSuperheroe, renderizarListasSuperheroes } from '../views/responseView.mjs';
 
@@ -13,6 +14,8 @@ export async function obtenerSuperheroePorIdController(req, res) {
     try {
 
         const { id } = req.params;
+        console.log(id);
+        console.log(typeof (id));
         const superheroe = await obtenerSuperHeroePorId(id);
         if (!superheroe) {
             return res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
@@ -104,16 +107,51 @@ export async function crearNuevoSuperheroeController(req, res) {
 
         const datos = req.body;
 
-        const superheroeNuevo = crearNuevoSuperheroe(datos);
-        if (!superheroeNuevo) {
+        const superheroeCreado = await crearNuevoSuperheroe(datos);
+        if (!superheroeCreado) {
             return res.status(404).send({ mensaje: 'Superhéroe nuevo no encontrado' });
         }
 
-        const superheroeFormateado = renderizarSuperheroe(superheroeNuevo);
+        const superheroeFormateado = renderizarSuperheroe(superheroeCreado);
         res.status(200).json(superheroeFormateado);
 
     } catch (error) {
         res.status(500).send({ mensaje: 'Error al crear el nuevo superhéroe', error: error.message });
     }
 
+}
+
+export async function actualizarSuperheroeController(req, res) {
+    try {
+
+        const { id } = req.params;
+        const datosActualizar = req.body;
+
+        console.log(id);
+        console.log(typeof (id));
+        const superheroeActualizado = await actualizarSuperheroe(id, datosActualizar);
+
+        if (!superheroeActualizado) {
+            return res.status(404).send({ mensaje: 'Superhéroe a actualizar no encontrado.' });
+        }
+
+        const superheroeFormateado = renderizarSuperheroe(superheroeActualizado);
+        res.status(200).json(superheroeFormateado);
+
+        /* 
+        Tren - 5 vagones
+        
+        bagon 1              |    bagon 2                  |    bagon 3          |    bagon 4                    |     bagon 5
+      ---------------------------------------------------------------------------------------------------------------------------
+        routes               |    controllers              |    services         |    repository                 |     DB
+        peticiones           |    capturar y respondemos   |    lógica           |    buscar, traer y devolver   |     datos
+        ingresa lo que       |    ruta, body               |    operacion,       |    CRUD                       |    
+        quiere el usuario    |                             |    conversiones     |                               |    
+
+        */
+
+
+    } catch (error) {
+        res.status(500).send({ mensaje: 'Error al actualizar el superhéroe', error: error.message });
+    }
 }
