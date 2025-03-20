@@ -5,7 +5,9 @@ import {
     obtenerSuperHeroesMayoresDe30,
     obtenerSuperheroesPorPoderes,
     crearNuevoSuperheroe,
-    actualizarSuperheroe
+    actualizarSuperheroe,
+    eliminarSuperheroePorId,
+    eliminarSuperheroePorNombre
 } from '../services/superheroesService.mjs';
 import { renderizarSuperheroe, renderizarListasSuperheroes } from '../views/responseView.mjs';
 
@@ -14,8 +16,6 @@ export async function obtenerSuperheroePorIdController(req, res) {
     try {
 
         const { id } = req.params;
-        console.log(id);
-        console.log(typeof (id));
         const superheroe = await obtenerSuperHeroePorId(id);
         if (!superheroe) {
             return res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
@@ -153,5 +153,41 @@ export async function actualizarSuperheroeController(req, res) {
 
     } catch (error) {
         res.status(500).send({ mensaje: 'Error al actualizar el superhéroe', error: error.message });
+    }
+}
+
+export async function eliminarSuperheroePorIdController(req, res) {
+    try {
+
+        const { id } = req.params;
+
+        const superheroeEliminado = await eliminarSuperheroePorId(id);
+        if (!superheroeEliminado) {
+            return res.status(404).send({ mensaje: 'Superhéroe a eliminar por ID no encontrado.' });
+        }
+
+        const superheroeFormateado = renderizarSuperheroe(superheroeEliminado);
+        res.status(200).json(superheroeFormateado);
+        
+    } catch (error) {
+        res.status(500).send({ mensaje: 'Error al eliminar el superhéroe por ID', error: error.message });
+    }
+}
+
+export async function eliminarSuperheroePorNombreController(req, res) {
+    try {
+
+        const { nombre } = req.params;
+
+        const superheroeEliminado = await eliminarSuperheroePorNombre(nombre);
+        if (!superheroeEliminado) {
+            return res.status(404).send({ mensaje: 'Superhéroe a eliminar por nombre no encontrado.' });
+        }
+
+        const superheroeFormateado = renderizarSuperheroe(superheroeEliminado);
+        res.status(200).json(superheroeFormateado);
+        
+    } catch (error) {
+        res.status(500).send({ mensaje: 'Error al eliminar el superhéroe por nombre', error: error.message });
     }
 }

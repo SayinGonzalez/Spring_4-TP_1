@@ -6,7 +6,9 @@ import {
     obtenerSuperheroesMayoresDe30Controller,
     obtenerSuperheroesPorPoderesController,
     crearNuevoSuperheroeController,
-    actualizarSuperheroeController
+    actualizarSuperheroeController,
+    eliminarSuperheroePorIdController,
+    eliminarSuperheroePorNombreController
 } from '../controllers/superheroesController.mjs';
 
 const router = express.Router();
@@ -19,5 +21,7 @@ router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoContro
 /* Spring 3 - TP1 */
 router.post('/heroes/crear', crearNuevoSuperheroeController);
 router.put('/heroes/actualizar/:id', actualizarSuperheroeController);
+router.delete('/heroes/eliminar/id/:id', eliminarSuperheroePorIdController);
+router.delete('/heroes/eliminar/nombre/:nombre', eliminarSuperheroePorNombreController);
 
 export default router;
