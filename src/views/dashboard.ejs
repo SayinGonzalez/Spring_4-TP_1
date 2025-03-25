@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superheroes</title>
+</head>
+<body>
+    <h2>Lista de Superheroes</h2>
+    <ul>
+        <% superheroes.forEach(superheroe => { %>
+            <li>Superheroe: <%= superheroe.nombreSuperHeroe %></li>
+            <li>Nombre Real: <%= superheroe.nombreReal %></li>
+            <li>Edad: <%= superheroe.edad %></li>
+            <li>Planeta Origen: <%= superheroe.planetaOrigen %></li>
+            <li>Debilidad: <%= superheroe.debilidad %></li>
+            <li>Poderes: <%= superheroe.poderes %></li>
+            <li>Aliados: <%= superheroe.aliados %></li>
+            <li>Enemigos: <%= superheroe.enemigos %></li>
+            <br>
+        <% }) %>
+    </ul>
+</body>
+</html>
