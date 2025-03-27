@@ -65,7 +65,6 @@ export async function buscarSuperheroesPorAtributoController(req, res) {
 }
 
 export async function obtenerSuperheroesMayoresDe30Controller(req, res) {
-
     try {
 
         const superheroes = await obtenerSuperHeroesMayoresDe30();
