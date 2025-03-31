@@ -3,6 +3,7 @@ import { connectDB } from './config/dbConfig.mjs';
 import superHeroRoutes from './routes/superHeroRoutes.mjs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import methodOverride from "method-override";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,8 +20,10 @@ app.set('view engine', 'ejs');
 // Middleware para parsear JSON
 app.use(express.json());
 // Para procesar datos del formulario
+// El formulario está enviando datos en formato application/x-www-form-urlencoded por defecto.
 app.use(express.urlencoded({ extended: true }));
-// El formulario está enviando datos en formato application/x-www-form-urlencoded por defecto. 
+// Configuración de method-override
+app.use(methodOverride("_method"));
 
 // Conexión a MongoDB
 connectDB();

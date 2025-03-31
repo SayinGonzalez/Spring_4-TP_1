@@ -14,15 +14,20 @@ import { renderizarSuperheroe, renderizarListasSuperheroes } from '../views/resp
 
 export async function obtenerSuperheroePorIdController(req, res) {
     try {
-
+        
         const { id } = req.params;
         const superheroe = await obtenerSuperHeroePorId(id);
         if (!superheroe) {
             return res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
         }
 
-        const superheroeFormateado = renderizarSuperheroe(superheroe);
-        res.status(200).json(superheroeFormateado);
+        res.render("editSuperhero", { superheroe });
+
+        /* // En vez de enviar respuesta aquí, pasamos los datos al siguiente middleware
+        req.superheroe = superheroe; */
+
+        /* const superheroeFormateado = renderizarSuperheroe(superheroe);
+        res.status(200).json(superheroeFormateado); */
 
     } catch (error) {
 
@@ -35,8 +40,8 @@ export async function obtenerTodosLosSuperheroesController(req, res) {
     try {
         const superheroes = await obtenerTodosLosSuperHeroes();
         res.render('dashboard', { superheroes });
-
-        const superheroesFormateados = renderizarListasSuperheroes(superheroes);
+        
+        //const superheroesFormateados = renderizarListasSuperheroes(superheroes);
         //res.status(200).json(superheroesFormateados);
 
     } catch (error) {
@@ -112,13 +117,17 @@ export async function crearNuevoSuperheroeController(req, res) {
             return res.status(404).send({ mensaje: 'Superhéroe nuevo no encontrado' });
         }
 
-        const superheroeFormateado = renderizarSuperheroe(superheroeCreado);
-        res.status(200).json(superheroeFormateado);
+        res.render('addSuperhero', { successMessage: '¡Superhéroe creado exitosamente!' });
+
+        //const superheroeFormateado = renderizarSuperheroe(superheroeCreado);
+        //res.status(200).json(superheroeFormateado);
 
     } catch (error) {
-        res.status(500).send({ mensaje: 'Error al crear el nuevo superhéroe', error: error.message });
+        //res.status(500).render('addSuperhero', { errorMessage: error.message });
+        res.render('addSuperhero', {
+            errorMessage: 'Hubo un error al crear el superhéroe. Asegúrate de completar todos los campos correctamente.'
+        });
     }
-
 }
 
 export async function actualizarSuperheroeController(req, res) {
@@ -135,8 +144,10 @@ export async function actualizarSuperheroeController(req, res) {
             return res.status(404).send({ mensaje: 'Superhéroe a actualizar no encontrado.' });
         }
 
-        const superheroeFormateado = renderizarSuperheroe(superheroeActualizado);
-        res.status(200).json(superheroeFormateado);
+        res.render('editSuperhero', { superheroe: superheroeActualizado, successMessage: '¡Superhéroe editado exitosamente!' });
+
+        // const superheroeFormateado = renderizarSuperheroe(superheroeActualizado);
+        // res.status(200).json(superheroeFormateado);
 
         /* 
         Tren - 5 vagones
@@ -168,7 +179,7 @@ export async function eliminarSuperheroePorIdController(req, res) {
 
         const superheroeFormateado = renderizarSuperheroe(superheroeEliminado);
         res.status(200).json(superheroeFormateado);
-        
+
     } catch (error) {
         res.status(500).send({ mensaje: 'Error al eliminar el superhéroe por ID', error: error.message });
     }
@@ -186,7 +197,7 @@ export async function eliminarSuperheroePorNombreController(req, res) {
 
         const superheroeFormateado = renderizarSuperheroe(superheroeEliminado);
         res.status(200).json(superheroeFormateado);
-        
+
     } catch (error) {
         res.status(500).send({ mensaje: 'Error al eliminar el superhéroe por nombre', error: error.message });
     }

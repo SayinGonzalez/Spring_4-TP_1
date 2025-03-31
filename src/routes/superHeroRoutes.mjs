@@ -26,15 +26,20 @@ router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoContro
 /* Spring 3 - TP2 */ // Validaciones agregadas a las rutas para actualizar y eliminar heroes
 /* Spring 3 - TP3 */ // Parseo de datos antes de las validaciones
 router.post('/heroes/agregar', parseSuperheroData, validationDataSuperHeros(), handleValidationErrors, crearNuevoSuperheroeController);
-router.put('/heroes/actualizar/:id', parseSuperheroData, validationDataSuperHeros(), handleValidationErrors, actualizarSuperheroeController);
+router.put('/heroes/editar/:id', parseSuperheroData, validationDataSuperHeros(), handleValidationErrors, actualizarSuperheroeController);
 router.delete('/heroes/eliminar/id/:id', eliminarSuperheroePorIdController);
 router.delete('/heroes/eliminar/nombre/:nombre', eliminarSuperheroePorNombreController);
 
-/* Spring 3 - TP3 */
-// Renderizar vistas
+/* Spring 3 - TP3 */ // Renderizar vistas
+
+// Vista agregar heroe
 router.get("/view/agregar", (req, res) => {
     res.render("addSuperhero"); // Renderiza views/addSuperhero.ejs
 });
+
+// Vista editar heroe 
+router.get("/view/editar/:id", obtenerSuperheroePorIdController);
+// Obtiene el superhero mediante el controlador y precarga los datos en el form
 
 export default router;
 
