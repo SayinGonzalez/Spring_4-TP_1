@@ -10,22 +10,6 @@
 
 <body class="bg-pink-950 text-gray-200">
 
-    <!-- Mostrar mensaje de éxito si se ha pasado desde el backend -->
-    <% if (typeof successMessage !== "undefined" && successMessage) { %>
-        <div id="mensajeExitoso" class="text-lg text-[#008000] bg-[#e0ffe0] text-center m-auto p-3">
-            <%= successMessage %>
-            <button type="button" onclick="this.parentElement.classList.add('hidden')" class="absolute top-0 right-4">x</button>
-        </div>
-    <% } %>
-    
-    <!-- Mostrar mensaje de error si se ha pasado desde el backend -->
-    <% if (typeof errorMessage !== "undefined" && errorMessage) { %>
-        <div id="mensajeExitoso" class="text-lg text-[#ff0000] bg-[#ffe0e0] text-center m-auto p-3">
-            <%= errorMessage %>
-            <button type="button" onclick="this.parentElement.classList.add('hidden')" class="absolute top-0 right-4">x</button>
-        </div>
-    <% } %>
-
     <h2 class="m-8 text-center text-2xl">Crear nuevo Superheroe</h2>
     <form action="/api/heroes/agregar" method="POST" class="w-2/6 m-auto">
 

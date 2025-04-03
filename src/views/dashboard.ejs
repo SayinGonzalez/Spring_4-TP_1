@@ -4,11 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="/js/deleteHero.js"></script>
     <title>Superheroes</title>
 </head>
 
 <body>
+
+    <!-- Mostrar mensaje de éxito si se ha pasado desde el backend -->
+    <% if (typeof successMessage !== "undefined" && successMessage) { %>
+        <div id="mensajeExitoso" class="text-lg text-[#008000] bg-[#e0ffe0] text-center m-auto p-3">
+            <%= successMessage %>
+            <button type="button" onclick="this.parentElement.classList.add('hidden')" class="absolute top-0 right-4">x</button>
+        </div>
+    <% } %>
+
     <h2>Lista de Superheroes</h2>
     <table border="1" cellpadding="8" cellspacing="0" width="100%" height="200">
         <thead>
@@ -61,7 +71,7 @@
                         <button type="button" onclick="window.location.href='/api/view/editar/<%= superheroe._id %>'">Editar</button>
                         <br>
                         <br>
-                        <button type="button">Eliminar</button>
+                        <button type="button" onclick="eliminarSuperheroe('<%= superheroe._id %>')">Eliminar</button>
                     </td>
                 </tr>
             <% }) %>

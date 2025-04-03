@@ -24,6 +24,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Configuración de method-override
 app.use(methodOverride("_method"));
+// Configuración de express.static
+app.use(express.static(path.join(__dirname, "public")));
 
 // Conexión a MongoDB
 connectDB();
