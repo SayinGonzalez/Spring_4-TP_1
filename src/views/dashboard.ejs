@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="/js/deleteHero.js"></script>
+    <script src="https://kit.fontawesome.com/fce8cb2351.js" crossorigin="anonymous"></script>
     <title>Superheroes</title>
 </head>
 
-<body>
+<body class="bg-teal-900 text-slate-100">
 
     <!-- Mostrar mensaje de éxito si se ha pasado desde el backend -->
     <% if (typeof successMessage !== "undefined" && successMessage) { %>
@@ -19,59 +20,65 @@
         </div>
     <% } %>
 
-    <h2>Lista de Superheroes</h2>
-    <table border="1" cellpadding="8" cellspacing="0" width="100%" height="200">
+    <div class="flex justify-between m-6 items-center">
+        <h2>Lista de Superheroes</h2>
+        <button type="button" class="px-3 py-2 h-fit border-2 rounded-xl hover:border-transparent hover:bg-rose-900 hover:shadow-md hover:shadow-rose-700" onclick="window.location.href='/api/view/agregar'">Crear Superhéroe</button>
+    </div>
+    
+    <table class="border">
         <thead>
             <tr>
-                <th>Superheroe</th>
-                <th>Nombre Real</th>
-                <th>Edad</th>
-                <th>Planeta Origen</th>
-                <th>Debilidad</th>
-                <th>Poderes</th>
-                <th>Aliados</th>
-                <th>Enemigos</th>
-                <th>Acciones</th>
+                <th class="border px-4 py-2">Superheroe</th>
+                <th class="border px-4 py-2">Nombre Real</th>
+                <th class="border px-4 py-2">Edad</th>
+                <th class="border px-4 py-2">Planeta Origen</th>
+                <th class="border px-4 py-2">Debilidad</th>
+                <th class="border px-4 py-2">Poderes</th>
+                <th class="border px-4 py-2">Aliados</th>
+                <th class="border px-4 py-2">Enemigos</th>
+                <th class="border px-4 py-2">Creador</th>
+                <th class="border px-4 py-2">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <% superheroes.forEach(superheroe=> { %>
                 <tr>
-                    <td>
+                    <td class="border p-4">
                         <%= superheroe.nombreSuperHeroe %>
                     </td>
-                    <td>
+                    <td class="border p-4">
                         <%= superheroe.nombreReal %>
                     </td>
-                    <td>
+                    <td class="border p-4">
                         <%= superheroe.edad %>
                     </td>
-                    <td>
+                    <td class="border p-4">
                         <%= superheroe.planetaOrigen %>
                     </td>
-                    <td>
+                    <td class="border p-4">
                         <%= superheroe.debilidad %>
                     </td>
-                    <td>
+                    <td class="border p-4">
                         <% superheroe.poderes.forEach(poder => { %>
-                           <li><%= poder %></li>
+                           <li class="list-disc marker:text-violet-500"><%= poder %></li>
                         <% }) %>
                     </td>
-                    <td>
+                    <td class="border p-4">
                         <% superheroe.aliados.forEach(aliado => { %>
-                            <li><%= aliado %></li>
+                            <li class="list-disc marker:text-violet-500"><%= aliado %></li>
                         <% }) %>
                     </td>
-                    <td>
+                    <td class="border p-4">
                         <% superheroe.enemigos.forEach(enemigo => { %>
-                            <li><%= enemigo %></li>
+                            <li class="list-disc marker:text-violet-500"><%= enemigo %></li>
                         <% }) %>
                     </td>
-                    <td>
-                        <button type="button" onclick="window.location.href='/api/view/editar/<%= superheroe._id %>'">Editar</button>
-                        <br>
-                        <br>
-                        <button type="button" onclick="eliminarSuperheroe('<%= superheroe._id %>')">Eliminar</button>
+                    <td class="border p-4">
+                        <%= superheroe.creador %>
+                    </td>
+                    <td class="border text-center">
+                        <button type="button" onclick="window.location.href='/api/view/editar/<%= superheroe._id %>'" class="block mx-auto my-3 w-10 h-10 border-2 rounded-xl hover:bg-violet-800 hover:shadow-md hover:shadow-violet-600 hover:border-transparent"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button type="button" onclick="eliminarSuperheroe('<%= superheroe._id %>')" class="block mx-auto my-3 w-10 h-10 border-2 rounded-xl hover:bg-violet-800 hover:shadow-md hover:shadow-violet-600 hover:border-transparent"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 </tr>
             <% }) %>
