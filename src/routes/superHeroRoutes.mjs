@@ -16,30 +16,19 @@ import { parseSuperheroData } from '../middlewares/parseData.mjs';
 
 const router = express.Router();
 
-router.get('/heroes', obtenerTodosLosSuperheroesController);
-router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
-router.get('/heroes/:id', obtenerSuperheroePorIdController);
-router.get('/heroes/buscar/poderes/:valor', obtenerSuperheroesPorPoderesController);
-router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoController);
+router.get('/', obtenerTodosLosSuperheroesController);
+router.get('/mayores-30', obtenerSuperheroesMayoresDe30Controller);
+router.get('/:id', obtenerSuperheroePorIdController);
+router.get('/buscar/poderes/:valor', obtenerSuperheroesPorPoderesController);
+router.get('/buscar/:atributo/:valor', buscarSuperheroesPorAtributoController);
 
 /* Spring 3 - TP1 */ // Rutas agregadas
 /* Spring 3 - TP2 */ // Validaciones agregadas a las rutas para actualizar y eliminar heroes
 /* Spring 3 - TP3 */ // Parseo de datos antes de las validaciones
-router.post('/heroes/agregar', parseSuperheroData, validationDataSuperHeros(), handleValidationErrors, crearNuevoSuperheroeController);
-router.put('/heroes/editar/:id', parseSuperheroData, validationDataSuperHeros(), handleValidationErrors, actualizarSuperheroeController);
-router.delete('/heroes/eliminar/id/:id', eliminarSuperheroePorIdController);
-router.delete('/heroes/eliminar/nombre/:nombre', eliminarSuperheroePorNombreController);
-
-/* Spring 3 - TP3 */ // Renderizar vistas
-
-// Vista agregar heroe
-router.get("/view/agregar", (req, res) => {
-    res.render("addSuperhero"); // Renderiza views/addSuperhero.ejs
-});
-
-// Vista editar heroe 
-router.get("/view/editar/:id", obtenerSuperheroePorIdController);
-// Obtiene el superhero mediante el controlador y precarga los datos en el form
+router.post('/agregar', parseSuperheroData, validationDataSuperHeros(), handleValidationErrors, crearNuevoSuperheroeController);
+router.put('/editar/:id', parseSuperheroData, validationDataSuperHeros(), handleValidationErrors, actualizarSuperheroeController);
+router.delete('/eliminar/id/:id', eliminarSuperheroePorIdController);
+router.delete('/eliminar/nombre/:nombre', eliminarSuperheroePorNombreController);
 
 export default router;
 

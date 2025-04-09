@@ -12,8 +12,6 @@
 
     <h2 class="m-8 text-center text-2xl">Editar Superheroe</h2>
     <form action="/api/heroes/editar/<%= superheroe._id %>?_method=PUT" method="POST" class="w-2/6 m-auto">
-        
-        <input type="hidden" name="_method" value="PUT">
 
         <label for="nombreSuperHeroe" class="focus-within:text-rose-500 flex flex-col my-2">Nombre del Superhéroe:
             <input type="text" value="<%= superheroe.nombreSuperHeroe %>"

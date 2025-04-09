@@ -1,9 +1,11 @@
 import express from 'express';
 import { connectDB } from './config/dbConfig.mjs';
-import superHeroRoutes from './routes/superHeroRoutes.mjs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import methodOverride from "method-override";
+// Import rutas
+import superHeroRoutes from './routes/superHeroRoutes.mjs';
+import viewRoutes from './routes/viewRoutes.mjs';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,7 +33,8 @@ app.use(express.static(path.join(__dirname, "public")));
 connectDB();
 
 //configuración de rutas
-app.use('/api', superHeroRoutes);
+app.use('/api/heroes', superHeroRoutes);
+app.use('/api/view', viewRoutes);
 
 //Manejo de errores para rutas no encontradas
 app.use((req, res) => {
