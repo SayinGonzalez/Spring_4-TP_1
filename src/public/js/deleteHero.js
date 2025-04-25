@@ -7,7 +7,7 @@ async function eliminarSuperheroe(id) {
             
             if (response.ok) {
                 alert("Superhéroe eliminado con éxito");
-                window.location.href = "/api/heroes"; // Redirigir después de eliminar
+                window.location.href = "/api/heroes/lista"; // Redirigir después de eliminar
             } else {
                 alert("Error al eliminar el superhéroe");
             }

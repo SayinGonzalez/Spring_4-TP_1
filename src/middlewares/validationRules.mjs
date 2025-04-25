@@ -26,8 +26,8 @@ export const validationDataSuperHeros = () => [
         .notEmpty().withMessage('Lista de poderes requerida')
         .isArray({ min: 1 }).withMessage('Poderes no es un array o está vacío'),
     body('poderes.*')
-        //.exists()
         .trim()
         .isString().withMessage('Cada poder debe ser una cadena de texto')
-        .isLength({ min: 3, max: 60 }).withMessage('Cada poder debe tener entre 3 y 60 caracteres'),
+        .isLength({ min: 3, max: 60 }).withMessage('Cada poder debe tener entre 3 y 60 caracteres')
+        .matches(/^[^\d]*$/).withMessage('Los poderes no deben contener números.'),
 ]

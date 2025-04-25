@@ -21,7 +21,7 @@ export async function obtenerSuperheroePorIdController(req, res) {
             return res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
         }
 
-        res.render("editSuperhero", { superheroe });
+        res.render("editSuperhero", { superheroe, title: 'Editar Superheroe' });
 
         /* // En vez de enviar respuesta aquí, pasamos los datos al siguiente middleware
         req.superheroe = superheroe; */
@@ -39,7 +39,7 @@ export async function obtenerSuperheroePorIdController(req, res) {
 export async function obtenerTodosLosSuperheroesController(req, res) {
     try {
         const superheroes = await obtenerTodosLosSuperHeroes();
-        res.render('dashboard', { superheroes });
+        res.render('dashboard', { superheroes, title: 'Superhéroes' });
         
         //const superheroesFormateados = renderizarListasSuperheroes(superheroes);
         //res.status(200).json(superheroesFormateados);
@@ -118,7 +118,7 @@ export async function crearNuevoSuperheroeController(req, res) {
         }
 
         const superheroesActualizados = await obtenerTodosLosSuperHeroes();
-        res.render('dashboard', { superheroes: superheroesActualizados, successMessage: '¡Superhéroe creado exitosamente!' });
+        res.render('dashboard', { superheroes: superheroesActualizados, successMessage: '¡Superhéroe creado exitosamente!', title: 'Superhéroes' });
 
         //const superheroeFormateado = renderizarSuperheroe(superheroeCreado);
         //res.status(200).json(superheroeFormateado);
@@ -146,7 +146,7 @@ export async function actualizarSuperheroeController(req, res) {
         }
 
         const superheroesActualizados = await obtenerTodosLosSuperHeroes();
-        res.render('dashboard', { superheroes: superheroesActualizados, successMessage: '¡Superhéroe editado exitosamente!' });
+        res.render('dashboard', { superheroes: superheroesActualizados, successMessage: '¡Superhéroe editado exitosamente!', title: 'Superhéroes' });
 
         // const superheroeFormateado = renderizarSuperheroe(superheroeActualizado);
         // res.status(200).json(superheroeFormateado);
@@ -160,6 +160,10 @@ export async function actualizarSuperheroeController(req, res) {
         peticiones           |    capturar y respondemos   |    lógica           |    buscar, traer y devolver   |     datos
         ingresa lo que       |    ruta, body               |    operacion,       |    CRUD                       |    
         quiere el usuario    |                             |    conversiones     |                               |    
+
+
+        views -> routes -> controllers -> services -> repositories -> DB
+        views      <-      controllers <- services <- repositories <- DB
 
         */
 
@@ -180,7 +184,8 @@ export async function eliminarSuperheroePorIdController(req, res) {
         }
 
         const superheroesActualizados = await obtenerTodosLosSuperHeroes();
-        res.render('dashboard', { superheroes: superheroesActualizados, successMessage: '¡Superhéroe eliminado exitosamente!' });
+        /* res.render('dashboard', { superheroes: superheroesActualizados, successMessage: '¡Superhéroe eliminado exitosamente!', title: 'Eliminar Héroe' }); */
+        res.status(200).send({ superheroes: superheroesActualizados });
 
         /* const superheroeFormateado = renderizarSuperheroe(superheroeEliminado);
         res.status(200).json(superheroeFormateado); */
