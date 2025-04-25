@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "eslint": "^9.22.0",
+    "express": "^4.21.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-validator": "^7.2.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.12.1",
+    "node": "^20.19.0"
+  },
+  "name": "spring_3-tp_1",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch ./src/app.mjs",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SayinGonzalez/spring_3-TP_1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SayinGonzalez/spring_3-TP_1/issues"
+  },
+  "homepage": "https://github.com/SayinGonzalez/spring_3-TP_1#readme",
+  "description": "",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
