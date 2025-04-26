@@ -38,8 +38,10 @@ app.use(express.static(path.join(__dirname, "public")));
 connectDB();
 
 //configuración de rutas
-app.use('/api/heroes', superHeroRoutes);
+/* app.use(/^\/(api\/view(?:\/.*)?)?$/i, viewRoutes); */
+app.get('/', (req, res) => { res.redirect('/api/view/index'); });
 app.use('/api/view', viewRoutes);
+app.use('/api/heroes', superHeroRoutes);
 
 //Manejo de errores para rutas no encontradas
 app.use((req, res) => {
@@ -48,5 +50,7 @@ app.use((req, res) => {
 
 // Iniciar el servidor
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Servidor ejecutándose en el puerto: ${PORT}, https://spring-4-tp-1-server.onrender.com/api/view/index`);
+    console.log(`Servidor ejecutándose en el puerto: ${PORT}`);
+    console.log('Desde render - https://spring-4-tp-1-server.onrender.com/api/view/index');
+    console.log(`Desde VSC - http://localhost:${PORT}/api/view/index`);
 });

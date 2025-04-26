@@ -2,6 +2,16 @@ import express from 'express';
 import { obtenerSuperheroePorIdController } from '../controllers/superheroesController.mjs';
 const router = express.Router();
 
+
+// Sprint 4
+// router.get(["/", "/index", "/index/"], ...); -> con regex
+// router.get(/^\/(index)?\/?$/i, ...); -> con array de rutas
+
+router.get("/index", (req, res) => {
+    res.render("index", { title: 'Index'});
+});
+
+
 /* Spring 3 - TP3 */ // Renderizar vistas
 
 // Vista agregar heroe
@@ -17,14 +27,8 @@ router.get("/editar/:id", (req, res) => {
 });
 
 // Vista dasboard
-router.get("/heroes/dashboard", (req, res) => {
-    res.redirect("/api/heroes/lista");
-});
-
-// Sprint 4
-
-router.get("/index", (req, res) => {
-    res.render("index", { title: 'Index'});
+router.get("/dashboard", (req, res) => {
+    res.redirect("/api/heroes/dashboard");
 });
  
 export default router;

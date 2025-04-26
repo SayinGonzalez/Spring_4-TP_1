@@ -16,7 +16,7 @@ import { parseSuperheroData } from '../middlewares/parseData.mjs';
 
 const router = express.Router();
 
-router.get('/lista', obtenerTodosLosSuperheroesController);
+router.get('/dashboard', obtenerTodosLosSuperheroesController);
 router.get('/mayores-30', obtenerSuperheroesMayoresDe30Controller);
 router.get('/:id', obtenerSuperheroePorIdController);
 router.get('/buscar/poderes/:valor', obtenerSuperheroesPorPoderesController);
