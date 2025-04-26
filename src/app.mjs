@@ -48,5 +48,5 @@ app.use((req, res) => {
 
 // Iniciar el servidor
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Servidor ejecutándose en el puerto: ${PORT} - https://spring-4-tp-1-server.onrender.com/api/view/index`);
+    console.log(`Servidor ejecutándose en el puerto: ${PORT}, https://spring-4-tp-1-server.onrender.com/api/view/index`);
 });
