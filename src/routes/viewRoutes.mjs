@@ -1,5 +1,4 @@
 import express from 'express';
-import { obtenerSuperheroePorIdController } from '../controllers/superheroesController.mjs';
 const router = express.Router();
 
 

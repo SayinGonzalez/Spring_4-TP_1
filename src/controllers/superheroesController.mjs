@@ -14,7 +14,7 @@ import { renderizarSuperheroe, renderizarListasSuperheroes } from '../views/resp
 
 export async function obtenerSuperheroePorIdController(req, res) {
     try {
-        
+
         const { id } = req.params;
         const superheroe = await obtenerSuperHeroePorId(id);
         if (!superheroe) {
@@ -39,8 +39,12 @@ export async function obtenerSuperheroePorIdController(req, res) {
 export async function obtenerTodosLosSuperheroesController(req, res) {
     try {
         const superheroes = await obtenerTodosLosSuperHeroes();
-        res.render('dashboard', { superheroes, title: 'Superhéroes' });
-        
+
+        const successMessage = req.session.successMessage;
+        req.session.successMessage = null; // limpiar después de usar
+
+        res.render('dashboard', { superheroes, successMessage, title: 'Superhéroes' });
+
         //const superheroesFormateados = renderizarListasSuperheroes(superheroes);
         //res.status(200).json(superheroesFormateados);
 
@@ -117,11 +121,8 @@ export async function crearNuevoSuperheroeController(req, res) {
             return res.status(404).send({ mensaje: 'Superhéroe nuevo no encontrado' });
         }
 
-        const superheroesActualizados = await obtenerTodosLosSuperHeroes();
-        res.render('dashboard', { superheroes: superheroesActualizados, successMessage: '¡Superhéroe creado exitosamente!', title: 'Superhéroes' });
-
-        //const superheroeFormateado = renderizarSuperheroe(superheroeCreado);
-        //res.status(200).json(superheroeFormateado);
+        req.session.successMessage = '¡Superhéroe creado exitosamente!';
+        res.redirect('/api/view/dashboard');
 
     } catch (error) {
         //res.status(500).render('addSuperhero', { errorMessage: error.message });
@@ -145,11 +146,8 @@ export async function actualizarSuperheroeController(req, res) {
             return res.status(404).send({ mensaje: 'Superhéroe a actualizar no encontrado.' });
         }
 
-        const superheroesActualizados = await obtenerTodosLosSuperHeroes();
-        res.render('dashboard', { superheroes: superheroesActualizados, successMessage: '¡Superhéroe editado exitosamente!', title: 'Superhéroes' });
-
-        // const superheroeFormateado = renderizarSuperheroe(superheroeActualizado);
-        // res.status(200).json(superheroeFormateado);
+        req.session.successMessage = '¡Superhéroe editado exitosamente!';
+        res.redirect('/api/view/dashboard');
 
         /* 
         Tren - 5 vagones
@@ -183,9 +181,11 @@ export async function eliminarSuperheroePorIdController(req, res) {
             return res.status(404).send({ mensaje: 'Superhéroe a eliminar por ID no encontrado.' });
         }
 
-        const superheroesActualizados = await obtenerTodosLosSuperHeroes();
-        /* res.render('dashboard', { superheroes: superheroesActualizados, successMessage: '¡Superhéroe eliminado exitosamente!', title: 'Eliminar Héroe' }); */
-        res.status(200).send({ superheroes: superheroesActualizados });
+        req.session.successMessage = '¡Superhéroe eliminado exitosamente!';
+        res.status(200).end(); // Si solo quiero mandar un estádo como respuesta sin un msj
+        
+        /* const successMessage = '¡Superhéroe eliminado exitosamente!';
+        res.status(200).send({ successMessage }); // Funciona tanto con send como con json */
 
         /* const superheroeFormateado = renderizarSuperheroe(superheroeEliminado);
         res.status(200).json(superheroeFormateado); */

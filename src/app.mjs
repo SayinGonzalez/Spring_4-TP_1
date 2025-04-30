@@ -1,4 +1,5 @@
 import express from 'express';
+import session from 'express-session';
 import { connectDB } from './config/dbConfig.mjs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -19,6 +20,15 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.set('view engine', 'ejs');
 /* Forma la ruta absoluta hacia views/, sin importar desde dónde se ejecute el script. */
 app.set('views', path.join(__dirname, 'views'));
+
+app.use(session({
+    secret: 'appSuperHeroes', // Poné algo único
+    resave: false, // No guardes la sesión si no se modificó
+    saveUninitialized: false, // No guardes sesiones vacías
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 1 // 1 hora (en milisegundos)
+    }
+}));
 
 // Configurar express-ejs-layouts
 app.use(expressLayouts);
